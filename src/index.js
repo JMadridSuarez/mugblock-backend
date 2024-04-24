@@ -10,6 +10,7 @@ app.listen(PORT, ()=>{
     console.log(`CONNECTION ON PORT: ${PORT}`);
 });
 
+
 app.use(cors());
 app.use(express.json());
 app.use('/api/v1', routes);
