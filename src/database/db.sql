@@ -1,7 +1,7 @@
 CREATE DATABASE = blog_api;
 
 CREATE TABLE articles(
-    id VARCHAR(250) PRIMARY KEY,
+    article_id VARCHAR(250) PRIMARY KEY,
     user_email VARCHAR(250),
     title VARCHAR(100),
     content VARCHAR(500),
