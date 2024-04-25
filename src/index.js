@@ -16,7 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/v1', routes);
 
-app.get('ping', async(req,res)=>{
+app.get('/ping', async(req,res)=>{
    const response = await pool.query('SELECT NOW();');
    res.json({
     "pong": response.rows[0]
