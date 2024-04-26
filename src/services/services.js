@@ -162,7 +162,8 @@ const uploadImage = async(req,res)=>{
         const success = await bcrypt.compare(password , loginResponse.rows[0].password);
         const token = jwt.sign({email}, 'secret', {expiresIn: '1hr'})
             if(success){
-               await res.json({'email': loginResponse.rows[0].email, token})
+              const{data} = await res.json({'email': loginResponse.rows[0].email, token})
+              console.log(data)
             }else{
                 res.json({detail: 'Login failed'})
             }
