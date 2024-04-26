@@ -43,7 +43,8 @@ const postArticle = async(req,res) =>{
     try {
     const postArticleResponse = await pool.query('INSERT INTO articles(article_id,user_email,title, content, date) VALUES($1,$2,$3,$4,$5);',
     [id,email,title,content,date])
-    res.json(postArticleResponse.rows);
+    res.json(postArticleResponse)
+    ;
     } catch (error) {
         res.status(400).send('Failed post');
         console.log(error);
@@ -144,7 +145,8 @@ const uploadImage = async(req,res)=>{
             await pool.query('INSERT INTO users(id,name,lastname,email,password) VALUES($1, $2, $3, $4, $5);',
         [id,name,lastname,email,hashed_password]);
         const token = jwt.sign({email}, 'secret', {expiresIn: '1hr'})
-        await res.json({email,token})
+        console.log('control console')
+        return res.json({email,token})
         } catch (error) {
             
             if (error){
@@ -162,7 +164,7 @@ const uploadImage = async(req,res)=>{
         const success = await bcrypt.compare(password , loginResponse.rows[0].password);
         const token = jwt.sign({email}, 'secret', {expiresIn: '1hr'})
             if(success){
-              const{data} = await res.json({'email': loginResponse.rows[0].email, token})
+              const data = await res.json({'email': loginResponse.rows[0].email, token})
               console.log(data)
             }else{
                 res.json({detail: 'Login failed'})
