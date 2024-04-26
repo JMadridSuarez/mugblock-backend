@@ -137,18 +137,19 @@ const uploadImage = async(req,res)=>{
     }
 
     const signUp = async(req,res)=>{
+        console.log('control .....')
         const id = uuidv4();
         const {name,lastname,email,password} = req.body;
         const salt = bcrypt.genSaltSync(10);
         const hashed_password = bcrypt.hashSync(password, salt);
         try {
-            await pool.query('INSERT INTO users(id,name,lastname,email,password) VALUES($1, $2, $3, $4, $5);',
+          const response=  await pool.query('INSERT INTO users(id,name,lastname,email,password) VALUES($1, $2, $3, $4, $5);',
         [id,name,lastname,email,hashed_password]);
         const token = jwt.sign({email}, 'secret', {expiresIn: '1hr'})
-        
-         res.json(email,token)
-         console.log(email)
-         console.log(token)
+        const {data} = response.json()
+         res.json(data.email,token)
+         console.log(data)
+         
         } catch (error) {
             
             if (error){
