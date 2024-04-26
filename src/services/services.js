@@ -145,8 +145,9 @@ const uploadImage = async(req,res)=>{
             await pool.query('INSERT INTO users(id,name,lastname,email,password) VALUES($1, $2, $3, $4, $5);',
         [id,name,lastname,email,hashed_password]);
         const token = jwt.sign({email}, 'secret', {expiresIn: '1hr'})
-        console.log('control console')
-        return res.json({email,token})
+        
+         res.json(email,token)
+         console.log('control')
         } catch (error) {
             
             if (error){
