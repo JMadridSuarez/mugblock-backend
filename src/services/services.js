@@ -147,7 +147,8 @@ const uploadImage = async(req,res)=>{
         const token = jwt.sign({email}, 'secret', {expiresIn: '1hr'})
         
          res.json(email,token)
-         console.log('control')
+         console.log(email)
+         console.log(token)
         } catch (error) {
             
             if (error){
